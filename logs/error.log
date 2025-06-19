@@ -1,0 +1,107 @@
+[2025-06-08 07:45:18] [::1] [anonymous] D:\XAMPP\htdocs\Cookistry\admin-login.php:3 - session_start(): Ignoring session_start() because a session is already active | Context: {"severity":8}
+[2025-06-08 07:45:51] [::1] [anonymous] D:\XAMPP\htdocs\Cookistry\admin-login.php:3 - session_start(): Ignoring session_start() because a session is already active | Context: {"severity":8}
+[2025-06-08 19:34:06] [::1] [admin] File uploaded: img_6845c98eb30c80.03824109.jpg by admin
+[2025-06-10 19:32:10] [::1] [admin] D:\XAMPP\htdocs\Cookistry\config.php:166 - Invalid MIME type: image/avif for avocado-toast-bites..jpg
+[2025-06-10 19:41:17] [::1] [admin] D:\XAMPP\htdocs\Cookistry\config.php:166 - Invalid MIME type: image/avif for avocado-toast-bites..jpg
+[2025-06-10 20:02:49] [::1] [admin] D:\XAMPP\htdocs\Cookistry\config.php:164 - Detected MIME type: image/jpeg for file: appetizer-banner.jpg (size: 60048 bytes)
+[2025-06-10 20:02:49] [::1] [admin] D:\XAMPP\htdocs\Cookistry\config.php:182 - File uploaded: img_6848734950e502.67699751.jpg by admin
+[2025-06-10 20:04:26] [::1] [admin] D:\XAMPP\htdocs\Cookistry\config.php:164 - Detected MIME type: image/avif for file: avocado-toast-bites..jpg (size: 36847 bytes)
+[2025-06-10 20:04:26] [::1] [admin] D:\XAMPP\htdocs\Cookistry\config.php:168 - Invalid MIME type: image/avif for avocado-toast-bites..jpg
+[2025-06-10 20:06:14] [::1] [admin] D:\XAMPP\htdocs\Cookistry\config.php:164 - Detected MIME type: image/avif for file: avocado-toast-bites..jpg (size: 36847 bytes)
+[2025-06-10 20:06:14] [::1] [admin] D:\XAMPP\htdocs\Cookistry\config.php:168 - Invalid MIME type: image/avif for avocado-toast-bites..jpg
+[2025-06-10 20:22:22] [::1] [admin] D:\XAMPP\htdocs\Cookistry\config.php:164 - Detected MIME type: image/avif for file: avocado-toast-bites..jpg (size: 36847 bytes)
+[2025-06-10 20:22:22] [::1] [admin] D:\XAMPP\htdocs\Cookistry\config.php:182 - File uploaded: img_684877ded4c897.85187381.jpg by admin
+[2025-06-11 06:30:22] [::1] [anonymous] Category page error: SQLSTATE[42S02]: Base table or view not found: 1932 Table 'cookistry_db.recipes' doesn't exist in engine
+[2025-06-11 06:30:33] [::1] [anonymous] Category page error: SQLSTATE[42S02]: Base table or view not found: 1932 Table 'cookistry_db.recipes' doesn't exist in engine
+[2025-06-11 07:35:11] [::1] [anonymous] Category page error: SQLSTATE[42S02]: Base table or view not found: 1932 Table 'cookistry_db.recipes' doesn't exist in engine
+[2025-06-11 08:04:12] [::1] [anonymous] Category page error: SQLSTATE[42S02]: Base table or view not found: 1932 Table 'cookistry_db.recipes' doesn't exist in engine
+[2025-06-11 16:55:23] [::1] [admin1] D:\XAMPP\htdocs\Cookistry\config.php:164 - Detected MIME type: image/jpeg for file: avocado.jpeg (size: 8989 bytes)
+[2025-06-11 16:55:23] [::1] [admin1] D:\XAMPP\htdocs\Cookistry\config.php:182 - File uploaded: img_684998db5c88d2.52719022.jpeg by admin1
+[2025-06-11 16:57:58] [::1] [admin1] D:\XAMPP\htdocs\Cookistry\config.php:164 - Detected MIME type: image/jpeg for file: avocado.jpeg (size: 8989 bytes)
+[2025-06-11 16:57:58] [::1] [admin1] D:\XAMPP\htdocs\Cookistry\config.php:182 - File uploaded: img_68499976aaf773.61959657.jpeg by admin1
+[2025-06-11 17:11:28] [::1] [admin1] D:\XAMPP\htdocs\Cookistry\config.php:164 - Detected MIME type: image/jpeg for file: download.jpeg (size: 13278 bytes)
+[2025-06-11 17:11:28] [::1] [admin1] D:\XAMPP\htdocs\Cookistry\config.php:182 - File uploaded: img_68499ca0322fa2.83660539.jpeg by admin1
+[2025-06-11 19:44:43] [::1] [admin1] D:\XAMPP\htdocs\Cookistry\config.php:156 - File uploaded: img_6849c08bcce8e5.58206452.jpeg by admin1
+[2025-06-11 19:44:43] [::1] [admin1] Recipe updated successfully: Mushroom Turnovers by admin1
+[2025-06-11 21:05:09] [::1] [admin1] Recipe updated successfully: Vegetable Spring Rolls by admin1
+[2025-06-13 17:48:35] [::1] [admin1] D:\XAMPP\htdocs\Cookistry\config.php:156 - File uploaded: img_684c48538b5b62.03080041.webp by admin1
+[2025-06-13 17:48:35] [::1] [admin1] Recipe updated successfully: Oatmeal Breakfast Bowl by admin1
+[2025-06-13 17:51:38] [::1] [admin1] D:\XAMPP\htdocs\Cookistry\config.php:156 - File uploaded: img_684c490a3807e1.14817413.jpg by admin1
+[2025-06-13 17:51:38] [::1] [admin1] Recipe updated successfully: Scrambled Egg Muffins by admin1
+[2025-06-13 17:54:13] [::1] [admin1] D:\XAMPP\htdocs\Cookistry\config.php:156 - File uploaded: img_684c49a512ebf1.36568942.jpg by admin1
+[2025-06-13 17:54:13] [::1] [admin1] Recipe updated successfully: Banana Nut Waffles by admin1
+[2025-06-14 17:06:30] [::1] [admin1] Database error in edit-recipe: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'video_path' in 'field list'
+[2025-06-14 18:25:31] [::1] [admin1] Database error in edit-recipe: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'video_path' in 'field list'
+[2025-06-14 19:23:35] [::1] [admin1] Recipe updated successfully: Oatmeal Breakfast Bowl by admin1
+[2025-06-14 19:26:15] [::1] [admin1] Recipe updated successfully: Oatmeal Breakfast Bowl by admin1
+[2025-06-14 20:46:49] [::1] [admin1] Recipe updated successfully: Scrambled Egg Muffins by admin1
+[2025-06-14 20:48:43] [::1] [admin1] Recipe updated successfully: Scrambled Egg Muffins by admin1
+[2025-06-14 20:51:28] [::1] [admin1] Recipe updated successfully: Banana Nut Waffles by admin1
+[2025-06-14 20:53:56] [::1] [admin1] Recipe updated successfully: Banana Nut Waffles by admin1
+[2025-06-14 20:55:15] [::1] [admin1] Recipe updated successfully: Vegan Chia Pudding by admin1
+[2025-06-14 20:56:51] [::1] [admin1] Recipe updated successfully: Vegan Chia Pudding by admin1
+[2025-06-14 20:59:06] [::1] [admin1] Recipe updated successfully: Vegan Chia Pudding by admin1
+[2025-06-14 21:07:45] [::1] [admin1] D:\XAMPP\htdocs\Cookistry\config.php:156 - File uploaded: img_684dc881293710.01958026.jpg by admin1
+[2025-06-14 21:07:45] [::1] [admin1] Recipe updated successfully: Vegan Chia Pudding by admin1
+[2025-06-14 21:09:07] [::1] [admin1] Recipe updated successfully: Sausage Breakfast Skillet by admin1
+[2025-06-14 21:12:48] [::1] [admin1] Recipe updated successfully: Sausage Breakfast Skillet by admin1
+[2025-06-14 21:12:53] [::1] [admin1] Recipe updated successfully: Sausage Breakfast Skillet by admin1
+[2025-06-14 21:13:22] [::1] [admin1] Recipe updated successfully: Sausage Breakfast Skillet by admin1
+[2025-06-14 21:16:11] [::1] [admin1] D:\XAMPP\htdocs\Cookistry\config.php:156 - File uploaded: img_684dca7beec325.21056370.jpg by admin1
+[2025-06-14 21:16:11] [::1] [admin1] Recipe updated successfully: Sausage Breakfast Skillet by admin1
+[2025-06-14 21:17:37] [::1] [admin1] D:\XAMPP\htdocs\Cookistry\config.php:156 - File uploaded: img_684dcad165fe28.03095699.jpg by admin1
+[2025-06-14 21:17:37] [::1] [admin1] Recipe updated successfully: Sausage Breakfast Skillet by admin1
+[2025-06-14 21:24:13] [::1] [admin1] Recipe updated successfully: Yogurt Berry Parfait by admin1
+[2025-06-14 21:24:39] [::1] [admin1] Recipe updated successfully: Yogurt Berry Parfait by admin1
+[2025-06-14 21:25:12] [::1] [admin1] Recipe updated successfully: Yogurt Berry Parfait by admin1
+[2025-06-14 21:28:58] [::1] [admin1] D:\XAMPP\htdocs\Cookistry\config.php:156 - File uploaded: img_684dcd7ac50011.00239207.webp by admin1
+[2025-06-14 21:28:58] [::1] [admin1] Recipe updated successfully: Yogurt Berry Parfait by admin1
+[2025-06-14 21:31:06] [::1] [admin1] D:\XAMPP\htdocs\Cookistry\config.php:156 - File uploaded: img_684dcdfa3b23a2.90438908.jpg by admin1
+[2025-06-14 21:31:06] [::1] [admin1] Recipe updated successfully: French Toast Sticks by admin1
+[2025-06-14 21:32:12] [::1] [admin1] Recipe updated successfully: French Toast Sticks by admin1
+[2025-06-14 21:33:02] [::1] [admin1] Recipe updated successfully: Breakfast Burrito Bowl by admin1
+[2025-06-14 21:34:08] [::1] [admin1] Recipe updated successfully: Breakfast Burrito Bowl by admin1
+[2025-06-14 21:39:04] [::1] [admin1] D:\XAMPP\htdocs\Cookistry\config.php:156 - File uploaded: img_684dcfd8a94465.88485905.jpg by admin1
+[2025-06-14 21:39:04] [::1] [admin1] Recipe updated successfully: Breakfast Burrito Bowl by admin1
+[2025-06-14 21:40:55] [::1] [admin1] Recipe updated successfully: Breakfast Burrito Bowl by admin1
+[2025-06-14 21:41:41] [::1] [admin1] D:\XAMPP\htdocs\Cookistry\config.php:156 - File uploaded: img_684dd0752dfeb4.82264705.jpg by admin1
+[2025-06-14 21:41:41] [::1] [admin1] Recipe updated successfully: Breakfast Burrito Bowl by admin1
+[2025-06-14 21:43:07] [::1] [admin1] Recipe updated successfully: Vegan Breakfast Scramble by admin1
+[2025-06-14 21:48:18] [::1] [admin1] D:\XAMPP\htdocs\Cookistry\config.php:156 - File uploaded: img_684dd202c7a478.33701706.jpg by admin1
+[2025-06-14 21:48:18] [::1] [admin1] Recipe updated successfully: Vegan Breakfast Scramble by admin1
+[2025-06-14 21:52:58] [::1] [admin1] D:\XAMPP\htdocs\Cookistry\config.php:156 - File uploaded: img_684dd31a8b5e96.70357689.jpg by admin1
+[2025-06-14 21:52:58] [::1] [admin1] Recipe updated successfully: Peanut Butter Banana Toast by admin1
+[2025-06-14 21:56:06] [::1] [admin1] D:\XAMPP\htdocs\Cookistry\config.php:156 - File uploaded: img_684dd3d6de4935.11128341.jpg by admin1
+[2025-06-14 21:56:06] [::1] [admin1] Recipe updated successfully: Sweet Potato Breakfast Hash by admin1
+[2025-06-14 21:58:54] [::1] [admin1] D:\XAMPP\htdocs\Cookistry\config.php:156 - File uploaded: img_684dd47e655018.20112246.jpg by admin1
+[2025-06-14 21:58:54] [::1] [admin1] Recipe updated successfully: Sweet Potato Breakfast Hash by admin1
+[2025-06-14 22:05:01] [::1] [admin1] D:\XAMPP\htdocs\Cookistry\config.php:156 - File uploaded: img_684dd5ed64bf67.13512611.jpg by admin1
+[2025-06-14 22:05:01] [::1] [admin1] Recipe updated successfully: Cinnamon Apple Toast by admin1
+[2025-06-14 22:06:13] [::1] [admin1] Recipe updated successfully: Crispy Falafel Bites by admin1
+[2025-06-15 06:24:20] [::1] [admin1] User signup successful: pupita
+[2025-06-15 09:12:01] [::1] [admin1] D:\XAMPP\htdocs\Cookistry\config.php:156 - File uploaded: img_684e72412c4441.54326581.jpg by admin1
+[2025-06-15 09:12:01] [::1] [admin1] Recipe updated successfully: Almond Milk Smoothie by admin1
+[2025-06-15 11:03:06] [::1] [admin1] D:\XAMPP\htdocs\Cookistry\config.php:156 - File uploaded: img_684e8c4ae2e207.96880835.jpg by admin1
+[2025-06-15 11:03:06] [::1] [admin1] Recipe updated successfully: Cheese and Veggie Omelette by admin1
+[2025-06-15 11:03:54] [::1] [admin1] Recipe updated successfully: Coconut Pancakes by admin1
+[2025-06-15 11:08:09] [::1] [admin1] D:\XAMPP\htdocs\Cookistry\config.php:156 - File uploaded: img_684e8d79b98710.64700687.jpg by admin1
+[2025-06-15 11:08:09] [::1] [admin1] Recipe updated successfully: Coconut Pancakes by admin1
+[2025-06-15 11:11:20] [::1] [admin1] D:\XAMPP\htdocs\Cookistry\config.php:156 - File uploaded: img_684e8e3890cd35.25147902.jpg by admin1
+[2025-06-15 11:11:20] [::1] [admin1] Recipe updated successfully: Avocado Toast Bites by admin1
+[2025-06-15 11:17:39] [::1] [admin1] D:\XAMPP\htdocs\Cookistry\config.php:156 - File uploaded: img_684e8fb30deaf7.44149795.jpg by admin1
+[2025-06-15 11:17:39] [::1] [admin1] Recipe updated successfully: Breakfast Quinoa Bowl by admin1
+[2025-06-15 11:23:10] [::1] [admin1] D:\XAMPP\htdocs\Cookistry\config.php:156 - File uploaded: img_684e90fe218ac4.57622403.jpg by admin1
+[2025-06-15 11:23:10] [::1] [admin1] Recipe updated successfully: Ham and Cheese Croissant by admin1
+[2025-06-15 11:27:15] [::1] [admin1] D:\XAMPP\htdocs\Cookistry\config.php:156 - File uploaded: img_684e91f3cfbdd6.74663142.jpg by admin1
+[2025-06-15 11:27:15] [::1] [admin1] Recipe updated successfully: Berry Breakfast Muffins by admin1
+[2025-06-15 11:28:23] [::1] [admin1] Recipe updated successfully: Spinach Artichoke Dip by admin1
+[2025-06-17 06:51:32] [::1] [anonymous] Homepage error: SQLSTATE[HY000]: General error: 2006 MySQL server has gone away
+[2025-06-19 06:50:12] [::1] [anonymous] User signup successful: Zannat
+[2025-06-19 12:08:02] [::1] [anonymous] Category page error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''12' OFFSET '0'' at line 1
+[2025-06-19 18:18:25] [::1] [anonymous] Recipe upload error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'chef_name' in 'field list'
+[2025-06-19 18:18:42] [::1] [anonymous] Recipe upload error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'chef_name' in 'field list'
+[2025-06-19 19:12:37] [::1] [admin1] Recipe updated successfully: Spinach Artichoke Dip by admin1
+[2025-06-19 19:30:40] [::1] [admin1] Recipe upload error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'chef_name' in 'field list'
+[2025-06-19 19:30:55] [::1] [admin1] Recipe upload error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'chef_name' in 'field list'
+[2025-06-19 19:31:42] [::1] [admin1] Recipe upload error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'chef_name' in 'field list'
+[2025-06-19 21:50:16] [::1] [admin1] Recipe updated successfully: Decadent Chocolate Lava Cake by admin1

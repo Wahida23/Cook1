@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us - Cookistry</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="images/logo.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    /* Contact Page Specific Styles */
+    .contact-container {
+      max-width: 1000px;
+      margin: 3rem auto;
+      padding: 0 2rem;
+    }
+    
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-top: 2rem;
+    }
+    
+    .contact-info {
+      padding: 2rem;
+      background: linear-gradient(135deg, #4ca1af 0%, #2c3e50 100%);
+      border-radius: 10px;
+      color: white;
+      height: fit-content;
+    }
+    
+    .contact-info h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      padding-bottom: 0.8rem;
+    }
+    
+    .contact-info h3::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 50px;
+      height: 3px;
+      background-color: white;
+    }
+    
+    .contact-detail {
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: flex-start;
+    }
+    
+    .contact-icon {
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 1rem;
+    }
+    
+    .contact-text h4 {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    
+    .contact-text p {
+      margin-top: 0.3rem;
+      color: rgba(255, 255, 255, 0.9);
+    }
+    
+    .contact-form {
+      padding: 2rem;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+    
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+    }
+    
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: #4ca1af;
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(76, 161, 175, 0.2);
+    }
+    
+    .form-group textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+    
+    .submit-btn {
+      background-color: #4ca1af;
+      color: white;
+      border: none;
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: inline-block;
+    }
+    
+    .submit-btn:hover {
+      background-color: #2c3e50;
+      transform: translateY(-3px);
+    }
+    
+    /* Sparkle elements similar to submit recipe section */
+    .sparkle-container {
+      position: relative;
+    }
+    
+    .contact-sparkle {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #4ca1af;
+      border-radius: 50%;
+      opacity: 0.4;
+      z-index: 1;
+    }
+    
+    .contact-sparkle:nth-child(1) {
+      top: 20%;
+      right: 10%;
+      animation: sparkle 4s infinite 0.5s;
+    }
+    
+    .contact-sparkle:nth-child(2) {
+      bottom: 30%;
+      left: 5%;
+      animation: sparkle 5s infinite 1s;
+    }
+    
+    /* Map placeholder */
+    .map-container {
+      max-width: 1000px;
+      margin: 3rem auto;
+      padding: 0 2rem;
+    }
+    
+    .map-container h3 {
+      color: #2c3e50;
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+      position: relative;
+      padding-bottom: 0.8rem;
+    }
+    
+    .map-container h3::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 50px;
+      height: 3px;
+      background-color: #4ca1af;
+    }
+    
+    .map-frame {
+      width: 100%;
+      height: 400px;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      background-color: #f9f9f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #666;
+      font-size: 1.2rem;
+    }
+    
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .contact-info {
+        order: 2;
+      }
+      
+      .contact-form {
+        order: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="navbar">
+      <img src="images/logo.png" alt="Cookistry Logo" class="logo" />
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li class="dropdown">
+            <a href="#">Categories</a>
+            <ul class="dropdown-content">
+              <li><a href="appetizer.html">Appetizer</a></li>
+              <li><a href="breakfast.html">Breakfast</a></li>
+              <li><a href="lunch.html">Lunch</a></li>
+              <li><a href="dinner.html">Dinner</a></li>
+              <li><a href="dessert.html">Dessert</a></li>
+            </ul>
+          </li>
+          <li><a href="contact.html" class="active">Contact</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="Login.html">Login</a></li>
+          <li><a href="signup.html">signup</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="search-box">
+      <input type="text" placeholder="Search recipes..." />
+      <button>Search</button>
+    </div>
+  </header>
+
+  <section class="category-banner">
+    <div class="banner-content">
+      <h1>Contact Us</h1>
+      <p>Have questions, feedback, or recipe suggestions? We'd love to hear from you!</p>
+    </div>
+  </section>
+
+  <div class="contact-container sparkle-container">
+    <div class="contact-sparkle"></div>
+    <div class="contact-sparkle"></div>
+    
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>Get In Touch</h3>
+        
+        <div class="contact-detail">
+          <div class="contact-icon">
+            <span>📍</span>
+          </div>
+          <div class="contact-text">
+            <h4>Location</h4>
+            <p>Cookistry Headquarters<br>Chittagong, Bangladesh</p>
+          </div>
+        </div>
+        
+        <div class="contact-detail">
+          <div class="contact-icon">
+            <span>📞</span>
+          </div>
+          <div class="contact-text">
+            <h4>Phone</h4>
+            <p>+880-1234-567890</p>
+          </div>
+        </div>
+        
+        <div class="contact-detail">
+          <div class="contact-icon">
+            <span>✉️</span>
+          </div>
+          <div class="contact-text">
+            <h4>Email</h4>
+            <p>support@cookistry.com</p>
+          </div>
+        </div>
+        
+        <div class="contact-detail">
+          <div class="contact-icon">
+            <span>⏰</span>
+          </div>
+          <div class="contact-text">
+            <h4>Office Hours</h4>
+            <p>Monday - Friday: 9AM - 5PM<br>Saturday: 10AM - 2PM</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="contact-form">
+        <h3>Send Us A Message</h3>
+        
+        <form id="contactForm" onsubmit="return validateForm()">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="message">Your Message</label>
+            <textarea id="message" name="message" required></textarea>
+          </div>
+          
+          <button type="submit" class="submit-btn">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="map-container">
+    <h3>Find Us</h3>
+    <div class="map-frame">
+      <p>Map placeholder - Your location map would appear here</p>
+    </div>
+  </div>
+
+  <footer class="enhanced-footer">
+    <div class="footer-grid">
+      <div class="footer-section">
+        <h3>About Cookistry</h3>
+        <p>Cookistry is your gateway to creative cooking. Whether you're a beginner or a seasoned chef, we help you discover exciting recipes, cooking tips, and kitchen inspirations to make every meal memorable.</p>
+      </div>
+      <div class="footer-section">
+        <h3>Contact Us</h3>
+        <p>Email: support@cookistry.com</p>
+        <p>Phone: +880-1234-567890</p>
+        <p>Location: Chittagong, Bangladesh</p>
+        <div class="social-links">
+          <a href="#" class="social-link">Facebook</a>
+          <a href="#" class="social-link">Instagram</a>
+          <a href="#" class="social-link">Twitter</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Cookistry. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    function validateForm() {
+      // Basic form validation
+      let name = document.getElementById('name').value;
+      let email = document.getElementById('email').value;
+      let subject = document.getElementById('subject').value;
+      let message = document.getElementById('message').value;
+      
+      if (name.trim() === '' || email.trim() === '' || subject.trim() === '' || message.trim() === '') {
+        alert('Please fill in all required fields');
+        return false;
+      }
+      
+      // Email validation
+      let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        alert('Please enter a valid email address');
+        return false;
+      }
+      
+      // If validation passes, you would typically submit the form to a backend
+      // For now, just show a success message
+      alert('Thank you for your message! We will get back to you soon.');
+      document.getElementById('contactForm').reset();
+      return false; // Prevent actual form submission for this demo
+    }
+  </script>
+</body>
+</html>
