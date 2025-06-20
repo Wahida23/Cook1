@@ -55,6 +55,10 @@ if ($_POST && $recipe) {
         $cuisine_type = sanitizeInput($_POST['cuisine_type'] ?? '');
         $dietary_restrictions = sanitizeInput($_POST['dietary_restrictions'] ?? '');
         
+        // NEW: Status fields
+        $status = sanitizeInput($_POST['status'] ?? 'draft');
+        $moderation_status = sanitizeInput($_POST['moderation_status'] ?? 'pending');
+        
         // Nutrition fields
         $calories_per_serving = (int)($_POST['calories_per_serving'] ?? 0);
         $protein_per_serving = floatval($_POST['protein_per_serving'] ?? 0);
@@ -71,7 +75,7 @@ if ($_POST && $recipe) {
             $validation_errors[] = "Title must be between 3 and 255 characters.";
         }
         
-        if (!in_array($category, ['appetizer', 'breakfast', 'lunch', 'dinner', 'dessert', 'snack', 'beverage'])) {
+        if (!in_array($category, ['appetizer', 'breakfast', 'lunch', 'dinner', 'dessert', 'bread-bakes', 'salads', 'healthy', 'beverages', 'snacks'])) {
             $validation_errors[] = "Invalid category selected.";
         }
         
@@ -154,7 +158,7 @@ if ($_POST && $recipe) {
                 // Generate slug if title changed
                 $slug = generateUniqueSlug($title, $pdo, $recipe_id);
                 
-                // Updated query with enhanced fields
+                // Updated query with enhanced fields INCLUDING STATUS
                 $stmt = $pdo->prepare("
                     UPDATE recipes SET 
                         title = ?, 
@@ -182,6 +186,8 @@ if ($_POST && $recipe) {
                         fiber_per_serving = ?,
                         sugar_per_serving = ?,
                         sodium_per_serving = ?,
+                        status = ?,
+                        moderation_status = ?,
                         updated_at = NOW()
                     WHERE id = ?
                 ");
@@ -212,6 +218,8 @@ if ($_POST && $recipe) {
                     $fiber_per_serving,
                     $sugar_per_serving,
                     $sodium_per_serving,
+                    $status,
+                    $moderation_status,
                     $recipe_id
                 ])) {
                     $success_message = "Recipe updated successfully!";
@@ -565,6 +573,58 @@ function generateUniqueSlug($title, $pdo, $exclude_id = null) {
             font-style: italic;
         }
 
+        /* NEW: Status Section Styles */
+        .status-section {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border: 2px solid #f59e0b;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .status-section .section-title {
+            color: #92400e;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .status-published {
+            background: #10b981;
+            color: white;
+        }
+
+        .status-draft {
+            background: #6b7280;
+            color: white;
+        }
+
+        .status-archived {
+            background: #ef4444;
+            color: white;
+        }
+
+        .moderation-approved {
+            background: #10b981;
+            color: white;
+        }
+
+        .moderation-pending {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .moderation-rejected {
+            background: #ef4444;
+            color: white;
+        }
+
         /* YouTube Video Section */
         .youtube-section {
             background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
@@ -758,6 +818,53 @@ function generateUniqueSlug($title, $pdo, $exclude_id = null) {
                 <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
                 <input type="hidden" name="video_type" value="url" id="videoType">
                 
+                <!-- NEW: Recipe Status Section -->
+                <div class="status-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-cog"></i>
+                        Recipe Status & Publishing
+                    </h2>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="status">Publication Status</label>
+                            <select id="status" name="status">
+                                <option value="draft" <?php echo ($recipe['status'] ?? 'draft') == 'draft' ? 'selected' : ''; ?>>📝 Draft</option>
+                                <option value="published" <?php echo ($recipe['status'] ?? '') == 'published' ? 'selected' : ''; ?>>✅ Published</option>
+                                <option value="archived" <?php echo ($recipe['status'] ?? '') == 'archived' ? 'selected' : ''; ?>>📦 Archived</option>
+                            </select>
+                            <div class="help-text">
+                                <strong>Published:</strong> Recipe will be visible on website | 
+                                <strong>Draft:</strong> Hidden from public | 
+                                <strong>Archived:</strong> Hidden but preserved
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="moderation_status">Moderation Status</label>
+                            <select id="moderation_status" name="moderation_status">
+                                <option value="pending" <?php echo ($recipe['moderation_status'] ?? 'pending') == 'pending' ? 'selected' : ''; ?>>⏳ Pending Review</option>
+                                <option value="approved" <?php echo ($recipe['moderation_status'] ?? '') == 'approved' ? 'selected' : ''; ?>>✅ Approved</option>
+                                <option value="rejected" <?php echo ($recipe['moderation_status'] ?? '') == 'rejected' ? 'selected' : ''; ?>>❌ Rejected</option>
+                            </select>
+                            <div class="help-text">
+                                Moderation status for user-submitted recipes
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Current Status Display -->
+                    <div style="margin-top: 1rem;">
+                        <strong>Current Status:</strong>
+                        <span class="status-badge status-<?php echo $recipe['status'] ?? 'draft'; ?>">
+                            <?php echo ucfirst($recipe['status'] ?? 'draft'); ?>
+                        </span>
+                        <span class="status-badge moderation-<?php echo $recipe['moderation_status'] ?? 'pending'; ?>">
+                            <?php echo ucfirst($recipe['moderation_status'] ?? 'pending'); ?>
+                        </span>
+                    </div>
+                </div>
+                
                 <!-- Basic Information Section -->
                 <div class="form-section">
                     <h2 class="section-title">
@@ -782,8 +889,11 @@ function generateUniqueSlug($title, $pdo, $exclude_id = null) {
                                 <option value="lunch" <?php echo ($recipe['category'] ?? '') == 'lunch' ? 'selected' : ''; ?>>🥪 Lunch</option>
                                 <option value="dinner" <?php echo ($recipe['category'] ?? '') == 'dinner' ? 'selected' : ''; ?>>🍽️ Dinner</option>
                                 <option value="dessert" <?php echo ($recipe['category'] ?? '') == 'dessert' ? 'selected' : ''; ?>>🍰 Dessert</option>
-                                <option value="snack" <?php echo ($recipe['category'] ?? '') == 'snack' ? 'selected' : ''; ?>>🍿 Snack</option>
-                                <option value="beverage" <?php echo ($recipe['category'] ?? '') == 'beverage' ? 'selected' : ''; ?>>🥤 Beverage</option>
+                                <option value="bread-bakes" <?php echo ($recipe['category'] ?? '') == 'bread-bakes' ? 'selected' : ''; ?>>🍞 Bread & Bakes</option>
+                                <option value="salads" <?php echo ($recipe['category'] ?? '') == 'salads' ? 'selected' : ''; ?>>🥗 Salads</option>
+                                <option value="healthy" <?php echo ($recipe['category'] ?? '') == 'healthy' ? 'selected' : ''; ?>>💪 Healthy</option>
+                                <option value="beverages" <?php echo ($recipe['category'] ?? '') == 'beverages' ? 'selected' : ''; ?>>🥤 Beverages</option>
+                                <option value="snacks" <?php echo ($recipe['category'] ?? '') == 'snacks' ? 'selected' : ''; ?>>🥜 Snacks</option>
                             </select>
                         </div>
 

@@ -277,10 +277,11 @@ $cookingTips = [
     }
 
     
-    /* Fix What's in Kitchen Section - Better contrast */
+    /* Enhanced What's in Kitchen Section - Better contrast and functionality */
     .whats-in-kitchen {
       background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
       color: #1e293b;
+      padding: 4rem 0;
     }
 
     .whats-in-kitchen h2 {
@@ -292,26 +293,106 @@ $cookingTips = [
       color: #64748b;
     }
 
+    .kitchen-finder {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
     .ingredients-input {
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(10px);
       border: 2px solid rgba(76, 161, 175, 0.2);
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      border-radius: 20px;
+      padding: 2rem;
     }
 
     .ingredients-input h3 {
       color: #1e293b;
+      margin-bottom: 1.5rem;
+      font-size: 1.3rem;
+      text-align: center;
     }
 
     .ingredient-tags {
       background: rgba(248, 250, 252, 0.8);
       border: 2px dashed rgba(76, 161, 175, 0.4);
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      min-height: 80px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .ingredient-tags:empty::before {
+      content: "No ingredients added yet";
+      color: #64748b;
+      font-style: italic;
+      width: 100%;
+      text-align: center;
+    }
+
+    .ingredient-tag {
+      background: linear-gradient(135deg, #4ca1af 0%, #2c3e50 100%);
+      color: white;
+      padding: 0.6rem 1rem;
+      border-radius: 25px;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-weight: 500;
+      box-shadow: 0 4px 15px rgba(76, 161, 175, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .ingredient-tag:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(76, 161, 175, 0.4);
+    }
+
+    .ingredient-tag i {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.7rem;
+      transition: all 0.3s ease;
+    }
+
+    .ingredient-tag i:hover {
+      background: rgba(255, 255, 255, 0.5);
+      transform: scale(1.1);
+    }
+
+    .input-group {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
     }
 
     .input-group input {
+      flex: 1;
       background: white;
       border: 2px solid rgba(76, 161, 175, 0.3);
       color: #1e293b;
+      padding: 1rem;
+      border-radius: 12px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .input-group input:focus {
+      outline: none;
+      border-color: #4ca1af;
+      box-shadow: 0 0 0 3px rgba(76, 161, 175, 0.1);
     }
 
     .input-group input::placeholder {
@@ -322,26 +403,116 @@ $cookingTips = [
       background: rgba(76, 161, 175, 0.15);
       color: #2c3e50;
       border: 2px solid #4ca1af;
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
     .btn-add:hover {
       background: #4ca1af;
       color: white;
+      transform: translateY(-2px);
+    }
+
+    .suggested-ingredients {
+      margin-bottom: 1.5rem;
+      text-align: center;
     }
 
     .suggestion-label {
       color: #1e293b;
+      font-weight: 600;
+      margin-right: 1rem;
+      font-size: 0.9rem;
     }
 
     .ingredient-suggestion {
       background: rgba(255, 255, 255, 0.9);
       color: #2c3e50;
       border: 1px solid rgba(76, 161, 175, 0.4);
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-block;
+      margin: 0.2rem;
     }
 
     .ingredient-suggestion:hover {
       background: #4ca1af;
       color: white;
+      transform: translateY(-1px);
+    }
+
+    .kitchen-action-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 1.5rem;
+    }
+
+    .btn-find-recipes {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      border: none;
+      padding: 1.2rem 2.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .btn-find-recipes:hover {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(16, 185, 129, 0.4);
+    }
+
+    .btn-advanced-search {
+      background: rgba(255, 255, 255, 0.15);
+      color: #2c3e50;
+      padding: 1.2rem 2rem;
+      border: 2px solid rgba(76, 161, 175, 0.3);
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .btn-advanced-search:hover {
+      background: rgba(76, 161, 175, 0.15);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(76, 161, 175, 0.2);
+      border-color: rgba(76, 161, 175, 0.5);
+      color: #2c3e50;
+      text-decoration: none;
+    }
+
+    .btn-advanced-search i {
+      font-size: 1.1rem;
+      transition: transform 0.3s ease;
+    }
+
+    .btn-advanced-search:hover i {
+      transform: rotate(90deg);
     }
 
     /* Quick Picks View More Button */
@@ -385,7 +556,7 @@ $cookingTips = [
       transform: translateX(4px);
     }
 
-    /* Mobile responsiveness for modal */
+    /* Mobile responsiveness for modal and kitchen finder */
     @media (max-width: 768px) {
       .modal-content {
         margin: 10% auto;
@@ -418,6 +589,35 @@ $cookingTips = [
       .user-dropdown:hover .dropdown-content {
         display: block;
       }
+
+      .kitchen-action-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .btn-find-recipes,
+      .btn-advanced-search {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+      }
+      
+      .ingredient-tags {
+        text-align: center;
+      }
+
+      .input-group {
+        flex-direction: column;
+      }
+
+      .suggested-ingredients {
+        text-align: center;
+      }
+
+      .suggestion-label {
+        display: block;
+        margin-bottom: 0.5rem;
+      }
     }
 
     @media (max-width: 480px) {
@@ -428,6 +628,14 @@ $cookingTips = [
 
       nav {
         margin-right: 0.5rem;
+      }
+
+      .ingredients-input {
+        padding: 1.5rem;
+      }
+
+      .ingredients-input h3 {
+        font-size: 1.1rem;
       }
     }
   </style>
@@ -625,7 +833,7 @@ $cookingTips = [
     </div>
   </section>
 
-  <!-- What's in Your Kitchen Section -->
+  <!-- What's in Your Kitchen Section - Updated with Full Functionality -->
   <section class="whats-in-kitchen">
     <div class="container">
       <h2><i class="fas fa-utensils"></i> What's in Your Kitchen?</h2>
@@ -650,16 +858,17 @@ $cookingTips = [
             <span class="ingredient-suggestion" onclick="addSuggestedIngredient('tomato')">Tomato</span>
             <span class="ingredient-suggestion" onclick="addSuggestedIngredient('onion')">Onion</span>
             <span class="ingredient-suggestion" onclick="addSuggestedIngredient('garlic')">Garlic</span>
+            <span class="ingredient-suggestion" onclick="addSuggestedIngredient('potato')">Potato</span>
+            <span class="ingredient-suggestion" onclick="addSuggestedIngredient('egg')">Egg</span>
+            <span class="ingredient-suggestion" onclick="addSuggestedIngredient('cheese')">Cheese</span>
           </div>
-          <button type="button" onclick="findRecipes()" class="btn-find-recipes">
-            <i class="fas fa-search"></i> Find Recipes
-          </button>
-        </div>
-        
-        <div class="recipe-results" id="recipeResults" style="display: none;">
-          <h3>Recipes you can make:</h3>
-          <div class="results-grid" id="resultsGrid">
-            <!-- Recipe results will appear here -->
+          <div class="kitchen-action-buttons">
+            <button type="button" onclick="findRecipes()" class="btn-find-recipes">
+              <i class="fas fa-search"></i> Find Recipes
+            </button>
+            <a href="kitchen-finder.php" class="btn-advanced-search">
+              <i class="fas fa-cogs"></i> Advanced Search
+            </a>
           </div>
         </div>
       </div>
@@ -972,7 +1181,7 @@ function getNewTip() {
   }, 200);
 }
 
-// Ingredients functionality
+// Enhanced Kitchen Finder functionality
 function addIngredient() {
   const input = document.getElementById('ingredientInput');
   const ingredient = input.value.trim().toLowerCase();
@@ -985,8 +1194,8 @@ function addIngredient() {
 }
 
 function addSuggestedIngredient(ingredient) {
-  if (!userIngredients.includes(ingredient)) {
-    userIngredients.push(ingredient);
+  if (!userIngredients.includes(ingredient.toLowerCase())) {
+    userIngredients.push(ingredient.toLowerCase());
     updateIngredientTags();
   }
 }
@@ -1000,6 +1209,11 @@ function updateIngredientTags() {
   const tagsContainer = document.getElementById('ingredientTags');
   tagsContainer.innerHTML = '';
   
+  if (userIngredients.length === 0) {
+    tagsContainer.innerHTML = '<span style="color: #64748b; font-style: italic;">No ingredients added yet</span>';
+    return;
+  }
+  
   userIngredients.forEach(ingredient => {
     const tag = document.createElement('span');
     tag.className = 'ingredient-tag';
@@ -1011,102 +1225,29 @@ function updateIngredientTags() {
   });
 }
 
-// Handle Enter key in ingredient input
-document.getElementById('ingredientInput').addEventListener('keypress', function(e) {
-  if (e.key === 'Enter') {
-    addIngredient();
-  }
-});
-
-// Find recipes based on ingredients
+// Find recipes based on ingredients - redirect to kitchen-finder.php
 function findRecipes() {
   if (userIngredients.length === 0) {
     alert('Please add some ingredients first!');
     return;
   }
   
-  // Show loading state
-  const resultsSection = document.getElementById('recipeResults');
-  const resultsGrid = document.getElementById('resultsGrid');
-  
-  resultsSection.style.display = 'block';
-  resultsGrid.innerHTML = '<div class="loading">Searching for recipes...</div>';
-  
-  // Simulate API call - In real implementation, this would be an AJAX call to your backend
-  setTimeout(() => {
-    // Mock recipe results based on ingredients
-    const mockRecipes = generateMockRecipes(userIngredients);
-    displayRecipeResults(mockRecipes);
-  }, 1500);
+  // Redirect to kitchen-finder.php with ingredients
+  const ingredientsString = userIngredients.join(',');
+  window.location.href = `kitchen-finder.php?ingredients=${encodeURIComponent(ingredientsString)}`;
 }
 
-function generateMockRecipes(ingredients) {
-  // This is a simplified example - in real implementation, 
-  // you'd query your database for recipes containing these ingredients
-  const recipes = [
-    {
-      id: 1,
-      title: 'Quick Chicken Stir Fry',
-      image: 'images/chicken-stir-fry.jpg',
-      time: '20 min',
-      difficulty: 'Easy',
-      matchingIngredients: ingredients.filter(ing => ['chicken', 'onion', 'garlic'].includes(ing))
-    },
-    {
-      id: 2,
-      title: 'Garlic Rice Bowl',
-      image: 'images/garlic-rice.jpg',
-      time: '15 min',
-      difficulty: 'Easy',
-      matchingIngredients: ingredients.filter(ing => ['rice', 'garlic', 'onion'].includes(ing))
-    },
-    {
-      id: 3,
-      title: 'Fresh Tomato Salad',
-      image: 'images/tomato-salad.jpg',
-      time: '10 min',
-      difficulty: 'Easy',
-      matchingIngredients: ingredients.filter(ing => ['tomato', 'onion'].includes(ing))
-    }
-  ];
-  
-  // Filter recipes that have at least one matching ingredient
-  return recipes.filter(recipe => recipe.matchingIngredients.length > 0);
-}
-
-function displayRecipeResults(recipes) {
-  const resultsGrid = document.getElementById('resultsGrid');
-  
-  if (recipes.length === 0) {
-    resultsGrid.innerHTML = `
-      <div class="no-results">
-        <i class="fas fa-search"></i>
-        <h3>No recipes found</h3>
-        <p>Try adding more common ingredients or check our recipe categories for inspiration.</p>
-      </div>
-    `;
-    return;
+// Handle Enter key in ingredient input
+document.addEventListener('DOMContentLoaded', function() {
+  const ingredientInput = document.getElementById('ingredientInput');
+  if (ingredientInput) {
+    ingredientInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        addIngredient();
+      }
+    });
   }
-  
-  resultsGrid.innerHTML = recipes.map(recipe => `
-    <div class="result-card">
-      <div class="result-image">
-        <img src="${recipe.image}" alt="${recipe.title}" />
-        <div class="result-time">${recipe.time}</div>
-      </div>
-      <div class="result-content">
-        <h4>${recipe.title}</h4>
-        <div class="matching-ingredients">
-          <span class="match-label">Matches:</span>
-          ${recipe.matchingIngredients.map(ing => `<span class="match-tag">${ing}</span>`).join('')}
-        </div>
-        <a href="recipe-detail.php?id=${recipe.id}" class="btn-result">
-          <i class="fas fa-eye"></i> View Recipe
-        </a>
-      </div>
-    </div>
-  `).join('');
-}
+});
 
 // Form submission handler
 const recipeForm = document.getElementById('recipeForm');
@@ -1226,6 +1367,16 @@ document.querySelectorAll('.card').forEach(card => {
   });
 });
 
+// Enhanced ingredient suggestion interactions
+document.querySelectorAll('.ingredient-suggestion').forEach(suggestion => {
+  suggestion.addEventListener('click', function() {
+    this.style.transform = 'scale(0.95)';
+    setTimeout(() => {
+      this.style.transform = 'scale(1)';
+    }, 150);
+  });
+});
+
 // Scroll to top functionality
 function scrollToTop() {
   window.scrollTo({
@@ -1244,6 +1395,11 @@ window.addEventListener('scroll', function() {
       scrollButton.classList.remove('show');
     }
   }
+});
+
+// Initialize kitchen finder when page loads
+document.addEventListener('DOMContentLoaded', function() {
+  updateIngredientTags(); // Initialize empty state
 });
 </script>
 
