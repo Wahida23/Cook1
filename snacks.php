@@ -20,9 +20,10 @@ if ($conn->connect_error) {
 }
 
 // Set category to appetizer (change this for each category page)
-$category = 'salads';
-$categoryTitle = 'Fresh Salads';
-$categoryDescription = 'Healthy and vibrant salad recipes with fresh ingredients and flavorful dressings';
+$category = 'snacks';
+$categoryTitle = 'Tasty Snacks';
+$categoryDescription = 'Quick and delicious snack recipes perfect for any time of the day, from savory bites to sweet treats';
+
 
 // Get search and filter parameters
 $search = isset($_GET['search']) ? trim($_GET['search']) : '';

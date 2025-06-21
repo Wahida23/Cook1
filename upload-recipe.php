@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     // Generate unique slug
                     $slug = generateSlug($title);
                     
-                    // Insert recipe
+                    // Insert recipe - FIXED: Use author_id instead of uploaded_by_user_id
                     $stmt = $pdo->prepare("
                         INSERT INTO recipes (
                             title, slug, image, video_url, video_path, video_file, description, ingredients, instructions, 
@@ -94,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             category, cuisine_type, dietary_restrictions, 
                             calories_per_serving, protein_per_serving, carbs_per_serving, fat_per_serving, 
                             fiber_per_serving, sugar_per_serving, sodium_per_serving,
-                            rating, uploaded_by_user_id, is_user_recipe, moderation_status, status, created_at, updated_at
+                            rating, author_id, is_user_recipe, moderation_status, status, created_at, updated_at
                         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 4.5, ?, 1, 'pending', 'draft', NOW(), NOW())
                     ");
                     

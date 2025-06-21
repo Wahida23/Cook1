@@ -68,7 +68,7 @@ function processAdvancedCSV($file) {
         return trim($header, '"\'` ');
     }, $headers);
     
-    // Expected headers mapping
+    // Expected headers mapping - FIXED: Added nutrition fields
     $expected_headers = [
         'id' => 'id',
         'title' => 'title', 
@@ -80,21 +80,36 @@ function processAdvancedCSV($file) {
         'description' => 'description',
         'ingredients' => 'ingredients',
         'instructions' => 'instructions',
+        'recipe_notes' => 'recipe_notes',
         'tags' => 'tags',
         'prep_time' => 'prep_time',
-        'cook_time' => 'cook_time', 
+        'cook_time' => 'cook_time',
+        'total_time' => 'total_time',
         'servings' => 'servings',
         'difficulty' => 'difficulty',
         'rating' => 'rating',
         'rating_count' => 'rating_count',
         'category' => 'category',
+        'cuisine_type' => 'cuisine_type',
+        'dietary_restrictions' => 'dietary_restrictions',
+        'calories_per_serving' => 'calories_per_serving',
+        'protein_per_serving' => 'protein_per_serving',
+        'carbs_per_serving' => 'carbs_per_serving',
+        'fat_per_serving' => 'fat_per_serving',
+        'fiber_per_serving' => 'fiber_per_serving',
+        'sugar_per_serving' => 'sugar_per_serving',
+        'sodium_per_serving' => 'sodium_per_serving',
         'status' => 'status',
         'views' => 'views', 
         'likes' => 'likes',
         'author_id' => 'author_id',
         'featured' => 'featured',
         'created_at' => 'created_at',
-        'updated_at' => 'updated_at'
+        'updated_at' => 'updated_at',
+        'uploaded_by_user_id' => 'uploaded_by_user_id',
+        'is_user_recipe' => 'is_user_recipe',
+        'moderation_status' => 'moderation_status',
+        'moderator_notes' => 'moderator_notes'
     ];
     
     // Map CSV headers to database columns
@@ -229,14 +244,28 @@ function processAdvancedCSV($file) {
             $description = sanitizeText($recipe_data['description'] ?? '');
             $ingredients = processIngredientsList($recipe_data['ingredients'] ?? '');
             $instructions = processInstructionsList($recipe_data['instructions'] ?? '');
+            $recipe_notes = sanitizeText($recipe_data['recipe_notes'] ?? '');
             $tags = sanitizeText($recipe_data['tags'] ?? '');
             $prep_time = sanitizeText($recipe_data['prep_time'] ?? '');
             $cook_time = sanitizeText($recipe_data['cook_time'] ?? '');
+            $total_time = sanitizeText($recipe_data['total_time'] ?? '');
             $servings = !empty($recipe_data['servings']) ? max(1, (int)$recipe_data['servings']) : 4;
             $difficulty = validateDifficulty($recipe_data['difficulty'] ?? 'Medium');
             $rating = validateRating($recipe_data['rating'] ?? 4.0);
             $rating_count = !empty($recipe_data['rating_count']) ? max(0, (int)$recipe_data['rating_count']) : 0;
             $category = validateCategory($recipe_data['category']);
+            $cuisine_type = sanitizeText($recipe_data['cuisine_type'] ?? '');
+            $dietary_restrictions = sanitizeText($recipe_data['dietary_restrictions'] ?? '');
+            
+            // FIXED: Process nutrition data properly
+            $calories_per_serving = !empty($recipe_data['calories_per_serving']) ? (float)$recipe_data['calories_per_serving'] : 0;
+            $protein_per_serving = !empty($recipe_data['protein_per_serving']) ? (float)$recipe_data['protein_per_serving'] : 0;
+            $carbs_per_serving = !empty($recipe_data['carbs_per_serving']) ? (float)$recipe_data['carbs_per_serving'] : 0;
+            $fat_per_serving = !empty($recipe_data['fat_per_serving']) ? (float)$recipe_data['fat_per_serving'] : 0;
+            $fiber_per_serving = !empty($recipe_data['fiber_per_serving']) ? (float)$recipe_data['fiber_per_serving'] : 0;
+            $sugar_per_serving = !empty($recipe_data['sugar_per_serving']) ? (float)$recipe_data['sugar_per_serving'] : 0;
+            $sodium_per_serving = !empty($recipe_data['sodium_per_serving']) ? (float)$recipe_data['sodium_per_serving'] : 0;
+            
             $status = validateStatus($recipe_data['status'] ?? 'published');
             $views = !empty($recipe_data['views']) ? max(0, (int)$recipe_data['views']) : 0;
             $likes = !empty($recipe_data['likes']) ? max(0, (int)$recipe_data['likes']) : 0;
@@ -244,6 +273,10 @@ function processAdvancedCSV($file) {
             $featured = validateFeatured($recipe_data['featured'] ?? '0');
             $created_at = validateDateTime($recipe_data['created_at'] ?? '');
             $updated_at = validateDateTime($recipe_data['updated_at'] ?? '');
+            $uploaded_by_user_id = !empty($recipe_data['uploaded_by_user_id']) ? (int)$recipe_data['uploaded_by_user_id'] : null;
+            $is_user_recipe = validateFeatured($recipe_data['is_user_recipe'] ?? '0');
+            $moderation_status = sanitizeText($recipe_data['moderation_status'] ?? 'approved');
+            $moderator_notes = sanitizeText($recipe_data['moderator_notes'] ?? '');
 
             // Validate category
             if (!$category) {
@@ -261,23 +294,29 @@ function processAdvancedCSV($file) {
             }
             
             if ($existing_recipe) {
-                // Update existing recipe
+                // FIXED: Update existing recipe with nutrition data
                 $stmt = $pdo->prepare("
                     UPDATE recipes SET
                         title = ?, slug = ?, image = ?, video_url = ?, video_file = ?, video_path = ?,
-                        description = ?, ingredients = ?, instructions = ?, tags = ?,
-                        prep_time = ?, cook_time = ?, servings = ?, difficulty = ?,
-                        rating = ?, rating_count = ?, category = ?, status = ?,
-                        views = ?, likes = ?, author_id = ?, featured = ?,
-                        updated_at = ?
+                        description = ?, ingredients = ?, instructions = ?, recipe_notes = ?, tags = ?,
+                        prep_time = ?, cook_time = ?, total_time = ?, servings = ?, difficulty = ?,
+                        rating = ?, rating_count = ?, category = ?, cuisine_type = ?, dietary_restrictions = ?,
+                        calories_per_serving = ?, protein_per_serving = ?, carbs_per_serving = ?, 
+                        fat_per_serving = ?, fiber_per_serving = ?, sugar_per_serving = ?, sodium_per_serving = ?,
+                        status = ?, views = ?, likes = ?, author_id = ?, featured = ?,
+                        updated_at = ?, uploaded_by_user_id = ?, is_user_recipe = ?, 
+                        moderation_status = ?, moderator_notes = ?
                     WHERE id = ?
                 ");
                 
                 if ($stmt->execute([
                     $title, $slug, $image, $video_url, $video_file, $video_path, $description,
-                    $ingredients, $instructions, $tags, $prep_time, $cook_time,
-                    $servings, $difficulty, $rating, $rating_count, $category,
-                    $status, $views, $likes, $author_id, $featured, $updated_at, $id
+                    $ingredients, $instructions, $recipe_notes, $tags, $prep_time, $cook_time, $total_time,
+                    $servings, $difficulty, $rating, $rating_count, $category, $cuisine_type, $dietary_restrictions,
+                    $calories_per_serving, $protein_per_serving, $carbs_per_serving, $fat_per_serving, 
+                    $fiber_per_serving, $sugar_per_serving, $sodium_per_serving,
+                    $status, $views, $likes, $author_id, $featured, $updated_at, $uploaded_by_user_id, 
+                    $is_user_recipe, $moderation_status, $moderator_notes, $id
                 ])) {
                     $stats['updated']++;
                 } else {
@@ -285,23 +324,29 @@ function processAdvancedCSV($file) {
                     $stats['skipped']++;
                 }
             } else {
-                // Insert new recipe
+                // FIXED: Insert new recipe with nutrition data
                 $stmt = $pdo->prepare("
                     INSERT INTO recipes (
                         title, slug, image, video_url, video_file, video_path, description,
-                        ingredients, instructions, tags, prep_time, cook_time,
-                        servings, difficulty, rating, rating_count, category,
-                        status, views, likes, author_id, featured, created_at, updated_at
+                        ingredients, instructions, recipe_notes, tags, prep_time, cook_time, total_time,
+                        servings, difficulty, rating, rating_count, category, cuisine_type, dietary_restrictions,
+                        calories_per_serving, protein_per_serving, carbs_per_serving, fat_per_serving,
+                        fiber_per_serving, sugar_per_serving, sodium_per_serving,
+                        status, views, likes, author_id, featured, created_at, updated_at,
+                        uploaded_by_user_id, is_user_recipe, moderation_status, moderator_notes
                     ) VALUES (
-                        ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+                        ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
                     )
                 ");
                 
                 if ($stmt->execute([
                     $title, $slug, $image, $video_url, $video_file, $video_path, $description,
-                    $ingredients, $instructions, $tags, $prep_time, $cook_time,
-                    $servings, $difficulty, $rating, $rating_count, $category,
-                    $status, $views, $likes, $author_id, $featured, $created_at, $updated_at
+                    $ingredients, $instructions, $recipe_notes, $tags, $prep_time, $cook_time, $total_time,
+                    $servings, $difficulty, $rating, $rating_count, $category, $cuisine_type, $dietary_restrictions,
+                    $calories_per_serving, $protein_per_serving, $carbs_per_serving, $fat_per_serving,
+                    $fiber_per_serving, $sugar_per_serving, $sodium_per_serving,
+                    $status, $views, $likes, $author_id, $featured, $created_at, $updated_at,
+                    $uploaded_by_user_id, $is_user_recipe, $moderation_status, $moderator_notes
                 ])) {
                     $stats['imported']++;
                 } else {

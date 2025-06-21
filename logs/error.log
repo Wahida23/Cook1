@@ -105,3 +105,9 @@
 [2025-06-19 19:30:55] [::1] [admin1] Recipe upload error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'chef_name' in 'field list'
 [2025-06-19 19:31:42] [::1] [admin1] Recipe upload error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'chef_name' in 'field list'
 [2025-06-19 21:50:16] [::1] [admin1] Recipe updated successfully: Decadent Chocolate Lava Cake by admin1
+[2025-06-21 05:44:12] [::1] [admin1] C:\xampp\htdocs\Cookistry\config.php:156 - File uploaded: img_68562a8ced2950.20804317.jpg by admin1
+[2025-06-21 05:44:12] [::1] [admin1] Recipe updated successfully: Roshogolla - Classic Bengali by admin1
+[2025-06-21 06:16:01] [::1] [admin1] Recipe updated successfully: Lassi (Sweet) by admin1
+[2025-06-21 06:17:27] [::1] [admin1] Recipe updated successfully: Cha (Bengali Tea) by admin1
+[2025-06-21 08:16:35] [::1] [admin1] Recipe updated successfully: Egg Toast by admin1
+[2025-06-21 08:21:03] [::1] [admin1] Recipe updated successfully: Egg Toast by admin1

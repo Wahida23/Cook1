@@ -25,7 +25,9 @@ try {
     $publishedRecipes = $stmt->fetchColumn();
     
     // Count user's favorites (placeholder - you'll need to create favorites table later)
-    $userFavorites = 0; // Placeholder
+    $stmt = $pdo->prepare("SELECT COUNT(*) FROM favorites WHERE user_id = ?");
+$stmt->execute([$user['id']]);
+$userFavorites = $stmt->fetchColumn();// Placeholder
     
     // Recent activity
     $recentActivity = []; // Placeholder
