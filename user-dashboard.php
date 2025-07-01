@@ -14,20 +14,20 @@ if (!$user) {
 
 // Get user statistics
 try {
-    // Count user's uploaded recipes
-    $stmt = $pdo->prepare("SELECT COUNT(*) as recipe_count FROM recipes WHERE author_id = ?");
+    // Count user's uploaded recipes - FIXED: Added is_user_recipe = 1 condition
+    $stmt = $pdo->prepare("SELECT COUNT(*) as recipe_count FROM recipes WHERE author_id = ? AND is_user_recipe = 1");
     $stmt->execute([$user['id']]);
     $userRecipes = $stmt->fetchColumn();
     
-    // Count user's published recipes
-    $stmt = $pdo->prepare("SELECT COUNT(*) as published_count FROM recipes WHERE author_id = ? AND status = 'published'");
+    // Count user's published recipes - FIXED: Added is_user_recipe = 1 condition
+    $stmt = $pdo->prepare("SELECT COUNT(*) as published_count FROM recipes WHERE author_id = ? AND status = 'published' AND is_user_recipe = 1");
     $stmt->execute([$user['id']]);
     $publishedRecipes = $stmt->fetchColumn();
     
     // Count user's favorites (placeholder - you'll need to create favorites table later)
     $stmt = $pdo->prepare("SELECT COUNT(*) FROM favorites WHERE user_id = ?");
-$stmt->execute([$user['id']]);
-$userFavorites = $stmt->fetchColumn();// Placeholder
+    $stmt->execute([$user['id']]);
+    $userFavorites = $stmt->fetchColumn();
     
     // Recent activity
     $recentActivity = []; // Placeholder

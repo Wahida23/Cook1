@@ -22,10 +22,11 @@ $searchTerm = isset($_GET['search']) ? sanitizeInput($_GET['search']) : '';
 $selectedCategory = isset($_GET['category']) ? sanitizeInput($_GET['category']) : '';
 
 try {
-    // Base query for quick recipes (recipes with prep time <= 30 minutes or quick keywords)
+    // Base query for quick recipes (recipes with prep time <= 20 minutes)
     $baseCondition = "(status = 'published' OR status IS NULL OR status = '') 
-                      AND (prep_time LIKE '%15%' OR prep_time LIKE '%20%' OR prep_time LIKE '%30%' 
-                           OR prep_time LIKE '%quick%' OR prep_time LIKE '%fast%' OR prep_time LIKE '%easy%')";
+                      AND (prep_time LIKE '%5%' OR prep_time LIKE '%10%' OR prep_time LIKE '%15%' OR prep_time LIKE '%20%' 
+                           OR prep_time LIKE '%quick%' OR prep_time LIKE '%fast%' OR prep_time LIKE '%easy%'
+                           OR CAST(REGEXP_REPLACE(prep_time, '[^0-9]', '') AS UNSIGNED) <= 20)";
     
     // Get all quick recipes grouped by category
     $categorySql = "SELECT category, COUNT(*) as count FROM recipes WHERE $baseCondition GROUP BY category ORDER BY category";
@@ -94,15 +95,20 @@ $categoryNames = [
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Quick Picks - Fast & Easy Recipes | Cookistry</title>
+    <title>Quick Picks - Fast & Easy Recipes Under 20 Minutes | Cookistry</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="icon" href="images/logo.png" type="image/png" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Quick Picks Page Specific Styles */
+        /* Quick Picks Page Styles - Matching Homepage Color Scheme */
+        body {
+            background: rgb(235, 242, 247);
+        }
+
+        /* Page Header - Matching Homepage Hero Style */
         .page-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #4ca1af 0%, #2c3e50 100%);
             color: white;
             padding: 4rem 0 2rem;
             text-align: center;
@@ -202,8 +208,8 @@ $categoryNames = [
         }
 
         .search-box-large:focus-within {
-            border-color: #667eea;
-            box-shadow: 0 4px 20px rgba(102,126,234,0.2);
+            border-color: #4ca1af;
+            box-shadow: 0 4px 20px rgba(76, 161, 175, 0.2);
         }
 
         .search-box-large input {
@@ -219,7 +225,7 @@ $categoryNames = [
         }
 
         .search-box-large button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #4ca1af 0%, #2c3e50 100%);
             color: white;
             border: none;
             padding: 1rem 2rem;
@@ -229,7 +235,7 @@ $categoryNames = [
         }
 
         .search-box-large button:hover {
-            background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+            background: linear-gradient(135deg, #2c3e50 0%, #4ca1af 100%);
         }
 
         .category-filter {
@@ -250,7 +256,7 @@ $categoryNames = [
 
         .filter-select:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #4ca1af;
         }
 
         /* Category Navigation */
@@ -296,7 +302,7 @@ $categoryNames = [
         }
 
         .category-tab.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #4ca1af 0%, #2c3e50 100%);
             color: white;
             border-color: rgba(255,255,255,0.3);
         }
@@ -325,7 +331,7 @@ $categoryNames = [
             color: #1e293b;
             margin-bottom: 1.5rem;
             padding-bottom: 0.5rem;
-            border-bottom: 3px solid #667eea;
+            border-bottom: 3px solid #4ca1af;
             display: inline-block;
         }
 
@@ -380,6 +386,7 @@ $categoryNames = [
             display: flex;
             align-items: center;
             gap: 0.3rem;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
         }
 
         .recipe-content {
@@ -414,7 +421,7 @@ $categoryNames = [
             display: flex;
             align-items: center;
             gap: 0.3rem;
-            color: #667eea;
+            color: #4ca1af;
             font-weight: 500;
         }
 
@@ -434,7 +441,7 @@ $categoryNames = [
 
         .btn-view-recipe {
             flex: 1;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #4ca1af 0%, #2c3e50 100%);
             color: white;
             padding: 0.8rem 1.5rem;
             border: none;
@@ -447,13 +454,15 @@ $categoryNames = [
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
+            box-shadow: 0 4px 15px rgba(76, 161, 175, 0.3);
         }
 
         .btn-view-recipe:hover {
-            background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+            background: linear-gradient(135deg, #2c3e50 0%, #4ca1af 100%);
             transform: translateY(-2px);
             text-decoration: none;
             color: white;
+            box-shadow: 0 8px 25px rgba(76, 161, 175, 0.4);
         }
 
         .btn-favorite {
@@ -500,26 +509,48 @@ $categoryNames = [
             color: #374151;
         }
 
-        /* Loading Animation */
-        .loading {
+        /* User dropdown styles - matching homepage */
+        .user-dropdown .dropdown-content {
+            min-width: 200px;
+            right: 0;
+            left: auto;
+        }
+
+        .user-menu li {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .user-menu li:last-child {
+            border-bottom: none;
+        }
+
+        .user-menu .divider {
+            height: 1px;
+            background: rgba(255,255,255,0.2);
+            margin: 0.5rem 0;
+            border: none;
+            padding: 0;
+        }
+
+        .user-menu a {
             display: flex;
-            justify-content: center;
             align-items: center;
-            padding: 3rem;
+            gap: 0.5rem;
+            padding: 0.8rem 1rem;
+            transition: all 0.3s ease;
         }
 
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid #f3f4f6;
-            border-top: 4px solid #667eea;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
+        .user-menu-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            text-decoration: none;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .user-menu a:hover {
+            background: rgba(255,255,255,0.1);
+            padding-left: 1.2rem;
         }
 
         /* Mobile Responsiveness */
@@ -553,6 +584,19 @@ $categoryNames = [
 
             .recipe-actions {
                 flex-direction: column;
+            }
+
+            .user-dropdown .dropdown-content {
+                position: relative;
+                display: none;
+                box-shadow: none;
+                background: rgba(255,255,255,0.1);
+                border-radius: 10px;
+                margin-top: 0.5rem;
+            }
+            
+            .user-dropdown:hover .dropdown-content {
+                display: block;
             }
         }
 
@@ -633,7 +677,7 @@ $categoryNames = [
     <section class="page-header">
         <div class="page-header-content">
             <h1><i class="fas fa-bolt"></i> Quick Picks</h1>
-            <p class="subtitle">Fast & delicious recipes for busy days - all under 30 minutes!</p>
+            <p class="subtitle">Super fast & delicious recipes - all under 20 minutes!</p>
             
             <div class="page-stats">
                 <div class="stat-item">
@@ -645,7 +689,7 @@ $categoryNames = [
                     <span class="stat-label">Categories</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number">≤30</span>
+                    <span class="stat-number">≤20</span>
                     <span class="stat-label">Minutes Max</span>
                 </div>
             </div>
@@ -757,7 +801,7 @@ $categoryNames = [
                                              alt="<?php echo htmlspecialchars($recipe['title']); ?>" />
                                         <div class="quick-badge">
                                             <i class="fas fa-clock"></i>
-                                            <?php echo htmlspecialchars($recipe['prep_time'] ?? '30 min'); ?>
+                                            <?php echo htmlspecialchars($recipe['prep_time'] ?? '20 min'); ?>
                                         </div>
                                     </div>
                                     
@@ -770,7 +814,7 @@ $categoryNames = [
                                         <div class="recipe-meta">
                                             <div class="recipe-time">
                                                 <i class="fas fa-clock"></i>
-                                                <?php echo htmlspecialchars($recipe['prep_time'] ?? '30 min'); ?>
+                                                <?php echo htmlspecialchars($recipe['prep_time'] ?? '20 min'); ?>
                                             </div>
                                             <div class="recipe-category">
                                                 <?php echo htmlspecialchars($categoryNames[strtolower($recipe['category'])] ?? ucfirst($recipe['category'])); ?>
@@ -812,7 +856,7 @@ $categoryNames = [
                                          alt="<?php echo htmlspecialchars($recipe['title']); ?>" />
                                     <div class="quick-badge">
                                         <i class="fas fa-clock"></i>
-                                        <?php echo htmlspecialchars($recipe['prep_time'] ?? '30 min'); ?>
+                                        <?php echo htmlspecialchars($recipe['prep_time'] ?? '20 min'); ?>
                                     </div>
                                 </div>
                                 
@@ -825,7 +869,7 @@ $categoryNames = [
                                     <div class="recipe-meta">
                                         <div class="recipe-time">
                                             <i class="fas fa-clock"></i>
-                                            <?php echo htmlspecialchars($recipe['prep_time'] ?? '30 min'); ?>
+                                            <?php echo htmlspecialchars($recipe['prep_time'] ?? '20 min'); ?>
                                         </div>
                                         <div class="recipe-category">
                                             <?php echo htmlspecialchars($categoryNames[strtolower($recipe['category'])] ?? ucfirst($recipe['category'])); ?>
@@ -859,34 +903,93 @@ $categoryNames = [
         <?php endif; ?>
     </main>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>Quick & Easy</h3>
-                <p>Discover delicious recipes that can be prepared in 30 minutes or less. Perfect for busy lifestyles!</p>
-            </div>
-            <div class="footer-section">
-                <h3>Categories</h3>
-                <ul>
-                    <li><a href="breakfast.php">Quick Breakfast</a></li>
-                    <li><a href="lunch.php">Fast Lunch</a></li>
-                    <li><a href="dinner.php">Easy Dinner</a></li>
-                    <li><a href="snacks.php">Quick Snacks</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Connect</h3>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-pinterest"></i></a>
+    <!-- Footer - Using Same Footer from Homepage -->
+    <footer class="enhanced-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <!-- About Section -->
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="images/logo.png" alt="Cookistry Logo" class="footer-logo-img" />
+                        <h3>Cookistry</h3>
+                    </div>
+                    <p>Your gateway to creative cooking. Discover exciting recipes, cooking tips, and kitchen inspirations to make every meal memorable.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" title="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link" title="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link" title="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link" title="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links Section -->
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.php">Home</a></li>
+                        <li><a href="about.php">About Us</a></li>
+                        <li><a href="contact.php">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+
+                <!-- Categories Section -->
+                <div class="footer-section">
+                    <h3>Recipe Categories</h3>
+                    <div class="category-grid">
+                        <ul class="footer-links">
+                            <li><a href="appetizer.php">Appetizers</a></li>
+                            <li><a href="breakfast.php">Breakfast</a></li>
+                            <li><a href="lunch.php">Lunch</a></li>
+                            <li><a href="dinner.php">Dinner</a></li>
+                        </ul>
+                        <ul class="footer-links">
+                            <li><a href="dessert.php">Desserts</a></li>
+                            <li><a href="bread-bakes.php">Bread & Bakes</a></li>
+                            <li><a href="salads.php">Salads</a></li>
+                            <li><a href="healthy.php">Healthy Food</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Contact Info Section -->
+                <div class="footer-section">
+                    <h3>Get In Touch</h3>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>support@cookistry.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Chittagong, Bangladesh</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 Cookistry. All rights reserved.</p>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2025 Cookistry. All rights reserved.</p>
+                    <div class="footer-bottom-links">
+                        <a href="#">Terms</a>
+                        <span>|</span>
+                        <a href="#">Privacy</a>
+                        <span>|</span>
+                        <a href="#">Cookies</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </footer>
 
@@ -964,22 +1067,6 @@ $categoryNames = [
             }, 3000);
         }
 
-        // Smooth scrolling for category navigation
-        document.querySelectorAll('.category-tab').forEach(tab => {
-            tab.addEventListener('click', function(e) {
-                if (this.getAttribute('href').includes('#')) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                }
-            });
-        });
-
         // Search functionality enhancement
         const searchInput = document.querySelector('input[name="search"]');
         if (searchInput) {
@@ -988,30 +1075,6 @@ $categoryNames = [
                     this.closest('form').submit();
                 }
             });
-        }
-
-        // Lazy loading for recipe images
-        if ('IntersectionObserver' in window) {
-            const imageObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const img = entry.target;
-                        img.src = img.dataset.src || img.src;
-                        img.classList.remove('lazy');
-                        observer.unobserve(img);
-                    }
-                });
-            });
-
-            document.querySelectorAll('img[data-src]').forEach(img => {
-                imageObserver.observe(img);
-            });
-        }
-
-        // Add loading animation for recipe cards
-        function showLoading() {
-            const container = document.querySelector('.recipes-container');
-            container.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
         }
 
         // Filter form auto-submit delay

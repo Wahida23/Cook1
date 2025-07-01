@@ -12,9 +12,9 @@ if (!$user) {
     exit();
 }
 
-// Get user's recipes
+// Get user's recipes - FIXED: Added is_user_recipe = 1 condition
 try {
-    $stmt = $pdo->prepare("SELECT * FROM recipes WHERE author_id = ? ORDER BY created_at DESC");
+    $stmt = $pdo->prepare("SELECT * FROM recipes WHERE author_id = ? AND is_user_recipe = 1 ORDER BY created_at DESC");
     $stmt->execute([$user['id']]);
     $myRecipes = $stmt->fetchAll();
 } catch (PDOException $e) {
@@ -549,7 +549,7 @@ try {
                                             <i class="fas fa-eye"></i> View
                                         </a>
                                     <?php endif; ?>
-                                    <a href="edit-recipe.php?id=<?php echo $recipe['id']; ?>" class="btn-small btn-edit">
+                                    <a href="user-edit-recipe.php?id=<?php echo $recipe['id']; ?>" class="btn-small btn-edit">
                                         <i class="fas fa-edit"></i> Edit
                                     </a>
                                 </div>
@@ -615,4 +615,3 @@ try {
     </script>
 </body>
 </html>
-            
